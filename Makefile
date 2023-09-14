@@ -1,11 +1,28 @@
+# Compiler settings
+CXX = g++
+CXXFLAGS = -Wall -std=c++11
 
-all: a.out
+# Target executable names
+TARGET = greeting
 
-a.out:
-	g++ -std=c++11 hello.cpp
 
-test: a.out
-	./a.out
+# Source files
+SOURCES = greeting.cpp
+
+
+# Object files
+OBJECTS = $(SOURCES:.cpp=.o)
+
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+
 
 clean:
-	rm a.out
+	rm -f $(OBJECTS)  $(TARGET) 
